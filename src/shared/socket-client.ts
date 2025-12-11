@@ -14,7 +14,7 @@ export function getSocket() {
     // Use NEXT_PUBLIC_SOCKET_URL if set (Railway), otherwise use same origin (Vercel/local)
     const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || "/";
     const socketPath = process.env.NEXT_PUBLIC_SOCKET_URL
-      ? "/api/socket" // Railway uses /socket.io
+      ? "/socket.io" // Railway server uses /socket.io (matches server.ts)
       : "/api/socket"; // Vercel/local uses /api/socket
 
     const isCrossOrigin =
@@ -35,7 +35,7 @@ export function getSocket() {
       reconnectionAttempts: Infinity, // Reconnect forever
       reconnectionDelay: 1000,
       reconnectionDelayMax: 5000,
-      timeout: 10000, // Reduce timeout to fail faster
+      timeout: 20000, // Reduce timeout to fail faster
       withCredentials: true, // CRITICAL: Send cookies for auth
       forceNew: false, // Reuse existing connection if possible
       // Note: Browser automatically sets Origin header - we cannot set it manually
