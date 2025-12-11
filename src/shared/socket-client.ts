@@ -14,7 +14,7 @@ export function getSocket() {
     // Use NEXT_PUBLIC_SOCKET_URL if set (Railway), otherwise use same origin (Vercel/local)
     const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || "/";
     const socketPath = process.env.NEXT_PUBLIC_SOCKET_URL
-      ? "/socket.io" // Railway uses /socket.io
+      ? "/api/socket" // Railway uses /socket.io
       : "/api/socket"; // Vercel/local uses /api/socket
 
     const isCrossOrigin =
