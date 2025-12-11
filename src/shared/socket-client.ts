@@ -36,10 +36,16 @@ export function getSocket() {
       reconnectionDelayMax: 50000, // 50 second max delay
       timeout: 20000, // 20 second timeout
       withCredentials: true, // CRITICAL: Send cookies for auth
-      forceNew: false, // Reuse existing connection if possible
+      forceNew: true, // Reuse existing connection if possible
       auth: {
-        token: getAuthToken(),
-      }
+        // Lấy auth_token từ localStorage (nếu có)
+        token:
+          (typeof window !== "undefined" &&
+            (localStorage.getItem("auth_token") ||
+              (typeof sessionStorage !== "undefined" &&
+                sessionStorage.getItem("auth_token")))) ||
+          undefined,
+      },
     });
 
     // Add error handlers with detailed logging
@@ -99,10 +105,11 @@ export function disconnectSocket() {
   }
 }
 
-
 // Lấy JWT từ cookie auth_token nếu có (dùng cho socket.auth.token)
 function getAuthToken(): string | undefined {
-  if (typeof document === 'undefined') return undefined;
-  const tokenCookie = document.cookie.split('; ').find((c) => c.startsWith('auth_token='));
-  return tokenCookie ? tokenCookie.split('=')[1] : undefined;
+  if (typeof document === "undefined") return undefined;
+  const tokenCookie = document.cookie
+    .split("; ")
+    .find((c) => c.startsWith("auth_token="));
+  return tokenCookie ? tokenCookie.split("=")[1] : undefined;
 }

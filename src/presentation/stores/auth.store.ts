@@ -14,12 +14,14 @@ interface AuthState {
   user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;
+  token?: string | null;
   _isChecking: boolean; // Internal flag to prevent multiple simultaneous checks
   _lastCheckError: number | null; // Timestamp of last failed check
   checkAuth: () => Promise<void>;
   login: (email: string, password: string) => Promise<any>;
   logout: () => Promise<void>;
-  setUser: (user: User | null) => void;
+  setUser: (user: User | null, token?: string | null) => void;
+  setToken: (token: string | null) => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -29,6 +31,7 @@ export const useAuthStore = create<AuthState>()(
         user: null,
         isLoading: true,
         isAuthenticated: false,
+        token: null,
         _isChecking: false,
         _lastCheckError: null,
 
@@ -76,6 +79,7 @@ export const useAuthStore = create<AuthState>()(
                 isLoading: false,
                 _isChecking: false,
                 _lastCheckError: Date.now(), // Record error timestamp
+                token: null,
               });
 
               // Clear localStorage for auth
@@ -126,7 +130,12 @@ export const useAuthStore = create<AuthState>()(
           set({
             user: data.user,
             isAuthenticated: true,
+            token: data.token ?? null,
           });
+          // Save token to localStorage for manual access if needed
+          if (typeof window !== "undefined" && data.token) {
+            localStorage.setItem("auth_token", data.token);
+          }
           return data;
         },
 
@@ -145,20 +154,37 @@ export const useAuthStore = create<AuthState>()(
               isAuthenticated: false,
               isLoading: false,
               _isChecking: false,
+              token: null,
             });
 
             // Clear localStorage
             if (typeof window !== "undefined") {
               localStorage.removeItem("auth-storage");
+              localStorage.removeItem("auth_token");
             }
           }
         },
 
-        setUser: (user: User | null) => {
+        setUser: (user: User | null, token?: string | null) => {
           set({
             user,
             isAuthenticated: !!user,
+            ...(token !== undefined ? { token } : {}),
           });
+          if (typeof window !== "undefined" && token) {
+            localStorage.setItem("auth_token", token);
+          }
+        },
+
+        setToken: (token: string | null) => {
+          set({ token });
+          if (typeof window !== "undefined") {
+            if (token) {
+              localStorage.setItem("auth_token", token);
+            } else {
+              localStorage.removeItem("auth_token");
+            }
+          }
         },
       }),
       {
@@ -166,6 +192,7 @@ export const useAuthStore = create<AuthState>()(
         partialize: (state) => ({
           user: state.user,
           isAuthenticated: state.isAuthenticated,
+          token: state.token,
         }),
         onRehydrateStorage: () => (state) => {
           // After rehydration, set loading to false and reset checking flag
@@ -175,6 +202,11 @@ export const useAuthStore = create<AuthState>()(
             state._lastCheckError = null;
             if (!state.user) {
               state.isAuthenticated = false;
+              state.token = null;
+            }
+            // Sync token from storage to localStorage if needed
+            if (typeof window !== "undefined" && state.token) {
+              localStorage.setItem("auth_token", state.token);
             }
           }
         },
@@ -194,6 +226,13 @@ if (typeof window !== "undefined") {
       _isChecking: false,
       _lastCheckError: null,
       isAuthenticated: !!state.user,
+      token: state.token ?? null,
     });
+    // Sync token to localStorage if it exists
+    if (state.token) {
+      localStorage.setItem("auth_token", state.token);
+    } else {
+      localStorage.removeItem("auth_token");
+    }
   });
 }
