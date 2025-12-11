@@ -51,6 +51,7 @@ export function useAuth() {
   const logout = async () => {
     await storeLogout();
     router.push("/login");
+    router.refresh();
   };
 
   return {
