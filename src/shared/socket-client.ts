@@ -5,8 +5,22 @@ let socket: Socket | null = null;
 export function getSocket() {
   if (!socket) {
     console.log("[Socket Client] Creating new socket instance...");
-    socket = io("/", {
-      path: "/api/socket",
+
+    // Use NEXT_PUBLIC_SOCKET_URL if set (Railway), otherwise use same origin (Vercel/local)
+    const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || "/";
+    const socketPath = process.env.NEXT_PUBLIC_SOCKET_URL
+      ? "/socket.io" // Railway uses /socket.io
+      : "/api/socket"; // Vercel/local uses /api/socket
+
+    console.log(
+      "[Socket Client] Connecting to:",
+      socketUrl,
+      "path:",
+      socketPath
+    );
+
+    socket = io(socketUrl, {
+      path: socketPath,
       transports: ["polling", "websocket"], // Try polling first, then upgrade to websocket
       autoConnect: true,
       reconnection: true,
