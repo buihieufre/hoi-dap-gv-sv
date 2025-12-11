@@ -50,8 +50,10 @@ export function useAuth() {
 
   const logout = async () => {
     await storeLogout();
-    router.push("/login");
-    router.refresh();
+    // Đảm bảo trang được reload lại hoàn toàn như F5
+    if (typeof window !== "undefined") {
+      window.location.href = "/login";
+    }
   };
 
   return {
