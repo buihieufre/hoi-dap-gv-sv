@@ -156,6 +156,7 @@ export const useAuthStore = create<AuthState>()(
               _isChecking: false,
               token: null,
             });
+            localStorage.removeItem("auth_token");
 
             // Clear localStorage
             if (typeof window !== "undefined") {
@@ -236,3 +237,4 @@ if (typeof window !== "undefined") {
     }
   });
 }
+
