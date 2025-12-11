@@ -1,5 +1,4 @@
 import { io, Socket } from "socket.io-client";
-
 let socket: Socket | null = null;
 
 export function getSocket() {
@@ -33,13 +32,14 @@ export function getSocket() {
       autoConnect: true,
       reconnection: true,
       reconnectionAttempts: Infinity, // Reconnect forever
-      reconnectionDelay: 1000,
-      reconnectionDelayMax: 5000,
-      timeout: 20000, // Reduce timeout to fail faster
+      reconnectionDelay: 10000, // 10 second delay
+      reconnectionDelayMax: 50000, // 50 second max delay
+      timeout: 20000, // 20 second timeout
       withCredentials: true, // CRITICAL: Send cookies for auth
       forceNew: false, // Reuse existing connection if possible
-      // Note: Browser automatically sets Origin header - we cannot set it manually
-      // The server will receive the Origin header from the browser automatically
+      auth: {
+        token: getAuthToken(),
+      }
     });
 
     // Add error handlers with detailed logging
@@ -97,4 +97,12 @@ export function disconnectSocket() {
   if (socket) {
     socket.disconnect();
   }
+}
+
+
+// Lấy JWT từ cookie auth_token nếu có (dùng cho socket.auth.token)
+function getAuthToken(): string | undefined {
+  if (typeof document === 'undefined') return undefined;
+  const tokenCookie = document.cookie.split('; ').find((c) => c.startsWith('auth_token='));
+  return tokenCookie ? tokenCookie.split('=')[1] : undefined;
 }
