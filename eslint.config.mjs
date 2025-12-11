@@ -13,6 +13,18 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    files: ["**/*.js"],
+    languageOptions: {
+      globals: {
+        ...globals.jest,
+      },
+    },
+    rules: {
+      "no-unused-vars": "warn",
+      "no-undef": "warn",
+    },
+  },
 ]);
 
 export default eslintConfig;

@@ -1,0 +1,4 @@
+# API Route Handlers
+# Next.js API routes sẽ gọi vào Application layer
+# VD: /api/questions, /api/auth/login...
+

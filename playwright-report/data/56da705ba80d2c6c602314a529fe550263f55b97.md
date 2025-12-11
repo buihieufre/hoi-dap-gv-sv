@@ -1,0 +1,95 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "Hỏi - Đáp CNTT" [ref=e6] [cursor=pointer]:
+          - /url: /student
+          - img [ref=e8]
+          - generic [ref=e12]: Hỏi - Đáp CNTT
+        - navigation [ref=e13]:
+          - link "Trang chủ" [ref=e14] [cursor=pointer]:
+            - /url: /student
+            - img [ref=e15]
+            - generic [ref=e17]: Trang chủ
+          - link "Câu hỏi" [ref=e18] [cursor=pointer]:
+            - /url: /questions
+            - img [ref=e19]
+            - generic [ref=e21]: Câu hỏi
+          - link "Đặt câu hỏi" [active] [ref=e22] [cursor=pointer]:
+            - /url: /questions/new
+            - img [ref=e23]
+            - generic [ref=e25]: Đặt câu hỏi
+          - link "Tài liệu" [ref=e26] [cursor=pointer]:
+            - /url: /resources
+            - img [ref=e27]
+            - generic [ref=e29]: Tài liệu
+          - link "Hồ sơ" [ref=e30] [cursor=pointer]:
+            - /url: /profile
+            - img [ref=e31]
+            - generic [ref=e33]: Hồ sơ
+        - generic [ref=e34]:
+          - generic [ref=e35]:
+            - generic [ref=e37]: B
+            - generic [ref=e38]:
+              - paragraph [ref=e39]: BUI DINH HIEU
+              - paragraph [ref=e40]: a44894@thanglong.edu.vn
+          - button "Đăng xuất" [ref=e41]:
+            - img [ref=e42]
+            - generic [ref=e44]: Đăng xuất
+    - generic [ref=e45]:
+      - banner [ref=e46]:
+        - generic [ref=e47]:
+          - button "Thông báo" [ref=e49]:
+            - img [ref=e50]
+          - 'button "Thông báo: Tắt" [ref=e52]':
+            - img [ref=e53]
+            - text: "Thông báo: Tắt"
+      - main [ref=e55]:
+        - generic [ref=e57]:
+          - generic [ref=e58]:
+            - link "Quay lại danh sách" [ref=e59] [cursor=pointer]:
+              - /url: /questions
+              - img [ref=e60]
+              - text: Quay lại danh sách
+            - heading "Đặt câu hỏi mới" [level=1] [ref=e62]
+            - paragraph [ref=e63]: Hãy mô tả câu hỏi của bạn một cách rõ ràng và chi tiết
+          - generic [ref=e64]:
+            - generic [ref=e65]:
+              - generic [ref=e66]: Tiêu đề câu hỏi *
+              - textbox "Tiêu đề câu hỏi *" [ref=e67]:
+                - /placeholder: "Ví dụ: Làm thế nào để đăng ký môn học tự chọn?"
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: Danh mục * (có thể chọn nhiều)
+                - button "Tạo danh mục học thuật" [ref=e71]:
+                  - img [ref=e72]
+                  - text: Tạo danh mục học thuật
+              - combobox [ref=e74]:
+                - generic [ref=e76]: Chọn danh mục (có thể chọn nhiều)
+                - img [ref=e77]
+            - generic [ref=e80]:
+              - generic [ref=e81]: Nội dung câu hỏi *
+              - generic [ref=e82]:
+                - img [ref=e84]
+                - generic [ref=e90]: Đang tải editor...
+              - paragraph [ref=e91]: Sử dụng thanh công cụ để định dạng văn bản, thêm danh sách, code blocks, v.v.
+            - generic [ref=e92]:
+              - generic [ref=e93]:
+                - img [ref=e94]
+                - generic [ref=e96]:
+                  - paragraph [ref=e97]: Đặt câu hỏi ẩn danh
+                  - paragraph [ref=e98]: Tên của bạn sẽ hiển thị công khai cho mọi người.
+              - switch [ref=e99] [cursor=pointer]
+            - generic [ref=e100]:
+              - link "Hủy" [ref=e101] [cursor=pointer]:
+                - /url: /questions
+              - button "Đăng câu hỏi" [ref=e102]
+      - button "Lên đầu trang" [ref=e103]:
+        - img [ref=e104]
+  - button "Open Next.js Dev Tools" [ref=e111] [cursor=pointer]:
+    - img [ref=e112]
+  - alert [ref=e116]
+```

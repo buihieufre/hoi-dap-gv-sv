@@ -1,0 +1,266 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "Hỏi - Đáp CNTT" [ref=e6] [cursor=pointer]:
+          - /url: /student
+          - img [ref=e8]
+          - generic [ref=e12]: Hỏi - Đáp CNTT
+        - navigation [ref=e13]:
+          - link "Trang chủ" [ref=e14] [cursor=pointer]:
+            - /url: /student
+            - img [ref=e15]
+            - generic [ref=e17]: Trang chủ
+          - link "Câu hỏi" [ref=e18] [cursor=pointer]:
+            - /url: /questions
+            - img [ref=e19]
+            - generic [ref=e21]: Câu hỏi
+          - link "Đặt câu hỏi" [ref=e22] [cursor=pointer]:
+            - /url: /questions/new
+            - img [ref=e23]
+            - generic [ref=e25]: Đặt câu hỏi
+          - link "Tài liệu" [ref=e26] [cursor=pointer]:
+            - /url: /resources
+            - img [ref=e27]
+            - generic [ref=e29]: Tài liệu
+          - link "Hồ sơ" [ref=e30] [cursor=pointer]:
+            - /url: /profile
+            - img [ref=e31]
+            - generic [ref=e33]: Hồ sơ
+        - generic [ref=e34]:
+          - generic [ref=e35]:
+            - generic [ref=e37]: B
+            - generic [ref=e38]:
+              - paragraph [ref=e39]: BUI DINH HIEU
+              - paragraph [ref=e40]: a44894@thanglong.edu.vn
+          - button "Đăng xuất" [ref=e41]:
+            - img [ref=e42]
+            - generic [ref=e44]: Đăng xuất
+    - generic [ref=e45]:
+      - banner [ref=e46]:
+        - generic [ref=e47]:
+          - button "Thông báo" [ref=e49]:
+            - img [ref=e50]
+          - 'button "Thông báo: Tắt" [ref=e52]':
+            - img [ref=e53]
+            - text: "Thông báo: Tắt"
+      - main [ref=e55]:
+        - generic [ref=e57]:
+          - generic [ref=e58]:
+            - generic [ref=e59]:
+              - heading "Câu hỏi" [level=1] [ref=e60]
+              - paragraph [ref=e61]: Tất cả câu hỏi trong hệ thống
+            - link "Đặt câu hỏi mới" [ref=e62] [cursor=pointer]:
+              - /url: /questions/new
+          - generic [ref=e64]:
+            - generic [ref=e66]:
+              - textbox "Tìm kiếm câu hỏi theo nội dung, tiêu đề..." [ref=e67]
+              - img [ref=e68]
+            - button "Tìm kiếm" [ref=e70]
+          - generic [ref=e72]:
+            - generic [ref=e73]:
+              - button "Tất cả" [ref=e74]
+              - button "Câu hỏi của tôi" [ref=e75]
+              - button "Bị từ chối" [ref=e76]
+            - combobox [ref=e78]:
+              - text: Tất cả danh mục
+              - img [ref=e79]
+          - generic [ref=e82]:
+            - 'link "Algorithms Data Structures Đã duyệt Đang mở “Trong quá trình làm LeetCode, ở bước nào não thật sự ‘lên trình’ nhất: lúc tự nghĩ hay lúc đọc solution?” “Trong quá trình làm LeetCode, ở bước nào não thật sự ‘lên trình’ nhất: lúc tự nghĩ hay lúc đọc solution?” BUI DINH HIEU (ẩn danh) 2 lượt xem 5 câu trả lời 10/12/2025" [ref=e83] [cursor=pointer]':
+              - /url: /questions/55e650a7-7294-4aa6-8dc1-0929954bc208
+              - generic [ref=e85]:
+                - generic [ref=e87]:
+                  - generic [ref=e88]:
+                    - generic [ref=e89]:
+                      - img [ref=e90]
+                      - text: Algorithms
+                    - generic [ref=e92]:
+                      - img [ref=e93]
+                      - text: Data Structures
+                    - generic [ref=e95]: Đã duyệt
+                    - generic [ref=e96]: Đang mở
+                  - 'heading "“Trong quá trình làm LeetCode, ở bước nào não thật sự ‘lên trình’ nhất: lúc tự nghĩ hay lúc đọc solution?”" [level=3] [ref=e97]'
+                - paragraph [ref=e99]: "“Trong quá trình làm LeetCode, ở bước nào não thật sự ‘lên trình’ nhất: lúc tự nghĩ hay lúc đọc solution?”"
+                - generic [ref=e100]:
+                  - generic [ref=e101]:
+                    - img [ref=e102]
+                    - text: BUI DINH HIEU
+                    - generic "Câu hỏi ẩn danh" [ref=e104]: (ẩn danh)
+                  - generic [ref=e105]:
+                    - img [ref=e106]
+                    - text: 2 lượt xem
+                  - generic [ref=e109]:
+                    - img [ref=e110]
+                    - text: 5 câu trả lời
+                  - generic [ref=e112]:
+                    - img [ref=e113]
+                    - generic [ref=e115]: 10/12/2025
+            - link "Algorithms Data Structures Đã duyệt Đang mở Mỗi chủ đề (array, graph, DP…) cần luyện bao nhiêu bài để nắm được pattern? Mỗi chủ đề (array, graph, DP…) cần luyện bao nhiêu bài để nắm được pattern? BUI DINH HIEU (ẩn danh) 2 lượt xem 0 câu trả lời 10/12/2025" [ref=e116] [cursor=pointer]:
+              - /url: /questions/40651b41-07ab-47f8-80d8-ff2050828278
+              - generic [ref=e118]:
+                - generic [ref=e120]:
+                  - generic [ref=e121]:
+                    - generic [ref=e122]:
+                      - img [ref=e123]
+                      - text: Algorithms
+                    - generic [ref=e125]:
+                      - img [ref=e126]
+                      - text: Data Structures
+                    - generic [ref=e128]: Đã duyệt
+                    - generic [ref=e129]: Đang mở
+                  - heading "Mỗi chủ đề (array, graph, DP…) cần luyện bao nhiêu bài để nắm được pattern?" [level=3] [ref=e130]
+                - paragraph [ref=e132]: Mỗi chủ đề (array, graph, DP…) cần luyện bao nhiêu bài để nắm được pattern?
+                - generic [ref=e133]:
+                  - generic [ref=e134]:
+                    - img [ref=e135]
+                    - text: BUI DINH HIEU
+                    - generic "Câu hỏi ẩn danh" [ref=e137]: (ẩn danh)
+                  - generic [ref=e138]:
+                    - img [ref=e139]
+                    - text: 2 lượt xem
+                  - generic [ref=e142]:
+                    - img [ref=e143]
+                    - text: 0 câu trả lời
+                  - generic [ref=e145]:
+                    - img [ref=e146]
+                    - generic [ref=e148]: 10/12/2025
+            - link "Algorithms Data Structures Web Development Đã duyệt Đang mở Cách để có thể sử dụng semantic search Em đang muốn sử dụng semantic search cho hệ thống hỗ trợ trao đổi giữa cố vấn học tập và sinh viên BUI DINH HIEU 2 lượt xem 1 câu trả lời 9/12/2025" [ref=e149] [cursor=pointer]:
+              - /url: /questions/b2610584-6bf4-47ba-88a6-1c6bdfd19f91
+              - generic [ref=e151]:
+                - generic [ref=e153]:
+                  - generic [ref=e154]:
+                    - generic [ref=e155]:
+                      - img [ref=e156]
+                      - text: Algorithms
+                    - generic [ref=e158]:
+                      - img [ref=e159]
+                      - text: Data Structures
+                    - generic [ref=e161]:
+                      - img [ref=e162]
+                      - text: Web Development
+                    - generic [ref=e164]: Đã duyệt
+                    - generic [ref=e165]: Đang mở
+                  - heading "Cách để có thể sử dụng semantic search" [level=3] [ref=e166]
+                - paragraph [ref=e168]: Em đang muốn sử dụng semantic search cho hệ thống hỗ trợ trao đổi giữa cố vấn học tập và sinh viên
+                - generic [ref=e169]:
+                  - generic [ref=e170]:
+                    - img [ref=e171]
+                    - text: BUI DINH HIEU
+                  - generic [ref=e173]:
+                    - img [ref=e174]
+                    - text: 2 lượt xem
+                  - generic [ref=e177]:
+                    - img [ref=e178]
+                    - text: 1 câu trả lời
+                  - generic [ref=e180]:
+                    - img [ref=e181]
+                    - generic [ref=e183]: 9/12/2025
+            - link "Data Structures Đã từ chối Đang mở Làm sao biết bài toán thuộc dạng gì (dp, graph, two pointer…)? Mình luyện LeetCode và thường bị mất nhiều thời gian để phân loại bài — dẫn tới chọn sai approach. Mong cộng đồng giúp xây checklist/heuristics để phâ... BUI DINH HIEU 2 lượt xem 0 câu trả lời 9/12/2025" [ref=e184] [cursor=pointer]:
+              - /url: /questions/9f582f43-a871-4ebb-9bdb-75205297a28a
+              - generic [ref=e186]:
+                - generic [ref=e188]:
+                  - generic [ref=e189]:
+                    - generic [ref=e190]:
+                      - img [ref=e191]
+                      - text: Data Structures
+                    - generic [ref=e193]: Đã từ chối
+                    - generic [ref=e194]: Đang mở
+                  - heading "Làm sao biết bài toán thuộc dạng gì (dp, graph, two pointer…)?" [level=3] [ref=e195]
+                - paragraph [ref=e197]: Mình luyện LeetCode và thường bị mất nhiều thời gian để phân loại bài — dẫn tới chọn sai approach. Mong cộng đồng giúp xây checklist/heuristics để phâ...
+                - generic [ref=e198]:
+                  - generic [ref=e199]:
+                    - img [ref=e200]
+                    - text: BUI DINH HIEU
+                  - generic [ref=e202]:
+                    - img [ref=e203]
+                    - text: 2 lượt xem
+                  - generic [ref=e206]:
+                    - img [ref=e207]
+                    - text: 0 câu trả lời
+                  - generic [ref=e209]:
+                    - img [ref=e210]
+                    - generic [ref=e212]: 9/12/2025
+            - link "Thực tập Đã duyệt Đang mở Muốn tự học để thi phỏng vấn tech thì bắt đầu ở đâu Em đang muốn tự học để chuẩn bị cho vòng phỏng vấn kỹ thuật (tech interview) nhưng chưa biết nên bắt đầu từ đâu cho đúng. Em thấy có nhiều thứ phải họ... BUI DINH HIEU 2 lượt xem 0 câu trả lời 9/12/2025" [ref=e213] [cursor=pointer]:
+              - /url: /questions/6a6aca86-3343-4cda-b9ad-6462db13b70c
+              - generic [ref=e215]:
+                - generic [ref=e217]:
+                  - generic [ref=e218]:
+                    - generic [ref=e219]:
+                      - img [ref=e220]
+                      - text: Thực tập
+                    - generic [ref=e222]: Đã duyệt
+                    - generic [ref=e223]: Đang mở
+                  - heading "Muốn tự học để thi phỏng vấn tech thì bắt đầu ở đâu" [level=3] [ref=e224]
+                - paragraph [ref=e226]: Em đang muốn tự học để chuẩn bị cho vòng phỏng vấn kỹ thuật (tech interview) nhưng chưa biết nên bắt đầu từ đâu cho đúng. Em thấy có nhiều thứ phải họ...
+                - generic [ref=e227]:
+                  - generic [ref=e228]:
+                    - img [ref=e229]
+                    - text: BUI DINH HIEU
+                  - generic [ref=e231]:
+                    - img [ref=e232]
+                    - text: 2 lượt xem
+                  - generic [ref=e235]:
+                    - img [ref=e236]
+                    - text: 0 câu trả lời
+                  - generic [ref=e238]:
+                    - img [ref=e239]
+                    - generic [ref=e241]: 9/12/2025
+            - link "Algorithms Đã duyệt Đang mở Cách luyện LeetCode để thật sự tăng tư duy? Làm sao biết mình đang luyện LeetCode đúng cách chứ không phải chỉ làm nhiều cho đủ số lượng? BUI DINH HIEU 3 lượt xem 0 câu trả lời 9/12/2025" [ref=e242] [cursor=pointer]:
+              - /url: /questions/f6c549c9-4a9d-40aa-ad4c-98ac2b93e16e
+              - generic [ref=e244]:
+                - generic [ref=e246]:
+                  - generic [ref=e247]:
+                    - generic [ref=e248]:
+                      - img [ref=e249]
+                      - text: Algorithms
+                    - generic [ref=e251]: Đã duyệt
+                    - generic [ref=e252]: Đang mở
+                  - heading "Cách luyện LeetCode để thật sự tăng tư duy?" [level=3] [ref=e253]
+                - paragraph [ref=e255]: Làm sao biết mình đang luyện LeetCode đúng cách chứ không phải chỉ làm nhiều cho đủ số lượng?
+                - generic [ref=e256]:
+                  - generic [ref=e257]:
+                    - img [ref=e258]
+                    - text: BUI DINH HIEU
+                  - generic [ref=e260]:
+                    - img [ref=e261]
+                    - text: 3 lượt xem
+                  - generic [ref=e264]:
+                    - img [ref=e265]
+                    - text: 0 câu trả lời
+                  - generic [ref=e267]:
+                    - img [ref=e268]
+                    - generic [ref=e270]: 9/12/2025
+            - link "Algorithms Đã duyệt Đang mở Cách để học môn Algo hiệu quả Em đang học môn algorithm, làm sao để học hiệu quả BUI DINH HIEU 2 lượt xem 5 câu trả lời 9/12/2025" [ref=e271] [cursor=pointer]:
+              - /url: /questions/e96e1d01-40aa-4038-a85e-511ed2e8e40d
+              - generic [ref=e273]:
+                - generic [ref=e275]:
+                  - generic [ref=e276]:
+                    - generic [ref=e277]:
+                      - img [ref=e278]
+                      - text: Algorithms
+                    - generic [ref=e280]: Đã duyệt
+                    - generic [ref=e281]: Đang mở
+                  - heading "Cách để học môn Algo hiệu quả" [level=3] [ref=e282]
+                - paragraph [ref=e284]: Em đang học môn algorithm, làm sao để học hiệu quả
+                - generic [ref=e285]:
+                  - generic [ref=e286]:
+                    - img [ref=e287]
+                    - text: BUI DINH HIEU
+                  - generic [ref=e289]:
+                    - img [ref=e290]
+                    - text: 2 lượt xem
+                  - generic [ref=e293]:
+                    - img [ref=e294]
+                    - text: 5 câu trả lời
+                  - generic [ref=e296]:
+                    - img [ref=e297]
+                    - generic [ref=e299]: 9/12/2025
+      - button "Lên đầu trang" [ref=e300]:
+        - img [ref=e301]
+  - button "Open Next.js Dev Tools" [ref=e308] [cursor=pointer]:
+    - img [ref=e309]
+  - alert [ref=e312]
+```
