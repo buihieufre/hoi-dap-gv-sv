@@ -14,10 +14,13 @@ export async function POST(request: NextRequest) {
     const { email, password } = body;
 
     if (!email || !password) {
-      return NextResponse.json(
+      const errorResponse = NextResponse.json(
         { error: "Email and password are required" },
         { status: 400 }
       );
+      // Disable cache for this error response
+      errorResponse.headers.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+      return errorResponse;
     }
 
     // Initialize use case
@@ -50,6 +53,9 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
 
+    // Disable cache for this successful response
+    response.headers.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+
     // Set HTTP-only cookie
     response.cookies.set("auth_token", token, {
       httpOnly: true,
@@ -61,7 +67,11 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error: any) {
-    return mapErrorToHttpResponse(error, error.statusCode || 500);
+    const errResponse = mapErrorToHttpResponse(error, error.statusCode || 500);
+    if (errResponse && errResponse.headers) {
+      errResponse.headers.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+    }
+    return errResponse;
   }
 }
 
