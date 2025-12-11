@@ -3,6 +3,11 @@ import { io, Socket } from "socket.io-client";
 let socket: Socket | null = null;
 
 export function getSocket() {
+  if (typeof window === "undefined") {
+    // Server-side rendering - return null
+    return null;
+  }
+
   if (!socket) {
     console.log("[Socket Client] Creating new socket instance...");
 
@@ -12,12 +17,15 @@ export function getSocket() {
       ? "/socket.io" // Railway uses /socket.io
       : "/api/socket"; // Vercel/local uses /api/socket
 
-    console.log(
-      "[Socket Client] Connecting to:",
+    const isCrossOrigin =
+      socketUrl !== "/" && !socketUrl.startsWith(window.location.origin);
+
+    console.log("[Socket Client] Connection config:", {
       socketUrl,
-      "path:",
-      socketPath
-    );
+      socketPath,
+      currentOrigin: window.location.origin,
+      isCrossOrigin,
+    });
 
     socket = io(socketUrl, {
       path: socketPath,
@@ -28,8 +36,10 @@ export function getSocket() {
       reconnectionDelay: 1000,
       reconnectionDelayMax: 5000,
       timeout: 10000, // Reduce timeout to fail faster
-      withCredentials: true, // Ensure cookies are sent
+      withCredentials: true, // CRITICAL: Send cookies for auth
       forceNew: false, // Reuse existing connection if possible
+      // Note: Browser automatically sets Origin header - we cannot set it manually
+      // The server will receive the Origin header from the browser automatically
     });
 
     // Add error handlers with detailed logging

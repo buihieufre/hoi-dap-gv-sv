@@ -24,25 +24,49 @@ app.prepare().then(() => {
     ? "*" 
     : allowedOriginsEnv.split(",").map(origin => origin.trim());
 
+  console.log(`[Socket Server] CORS allowed origins: ${allowedOrigins === "*" ? "* (all)" : allowedOrigins.join(", ")}`);
+
+  // CORS config: When credentials: true, cannot use "*" - must specify origins
+  // Socket.IO's origin: true will automatically set Access-Control-Allow-Origin to the request origin
+  // This works with credentials: true
+  const corsConfig: any = {
+    methods: ["GET", "POST", "OPTIONS"],
+    credentials: true, // CRITICAL: Allow cookies/credentials for auth
+    allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
+  };
+
+  if (allowedOrigins === "*") {
+    // For development/local: allow all origins
+    // Socket.IO will set Access-Control-Allow-Origin to the request origin (not "*")
+    // This works with credentials: true
+    corsConfig.origin = true;
+    console.log("[Socket Server] Using wildcard origin (auto-detect from request)");
+  } else {
+    // For production: validate against allowed list
+    corsConfig.origin = (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+      // Allow requests with no origin (mobile apps, Postman, etc.)
+      if (!origin) {
+        console.log("[Socket Server] Allowing request with no origin");
+        callback(null, true);
+        return;
+      }
+      
+      // Check if origin is in allowed list
+      if (allowedOrigins.includes(origin)) {
+        console.log(`[Socket Server] ✓ Allowing origin: ${origin}`);
+        callback(null, true);
+      } else {
+        console.warn(`[Socket Server] ✗ CORS blocked origin: ${origin}`);
+        console.warn(`[Socket Server] Allowed origins: ${allowedOrigins.join(", ")}`);
+        callback(new Error(`Not allowed by CORS: ${origin}`));
+      }
+    };
+  }
+
   // Initialize Socket.IO server with proper CORS
   const io = new SocketIOServer(httpServer, {
     path: "/socket.io",
-    cors: {
-      origin: allowedOrigins === "*"
-        ? "*"
-        : (origin, callback) => {
-            // Allow requests from allowed origins
-            if (!origin || allowedOrigins.includes("*") || allowedOrigins.includes(origin)) {
-              callback(null, true);
-            } else {
-              console.warn(`[Socket] CORS blocked origin: ${origin}`);
-              callback(new Error("Not allowed by CORS"));
-            }
-          },
-      methods: ["GET", "POST"],
-      credentials: true, // CRITICAL: Allow cookies/credentials for auth
-      allowedHeaders: ["Content-Type", "Authorization"],
-    },
+    cors: corsConfig,
     transports: ["websocket", "polling"],
   });
 

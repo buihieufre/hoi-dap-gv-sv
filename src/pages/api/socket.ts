@@ -9,6 +9,33 @@ export const config = {
 };
 
 export default function handler(req: NextApiRequest, res: any) {
+  // Handle CORS preflight (OPTIONS) requests explicitly
+  if (req.method === "OPTIONS") {
+    const origin = req.headers.origin;
+    const allowedOriginsEnv = process.env.ALLOWED_ORIGINS || "*";
+    const allowedOrigins =
+      allowedOriginsEnv === "*"
+        ? "*"
+        : allowedOriginsEnv.split(",").map((origin) => origin.trim());
+
+    let allowOrigin = "*";
+    if (allowedOrigins !== "*" && origin && allowedOrigins.includes(origin)) {
+      allowOrigin = origin;
+    } else if (allowedOrigins === "*" && origin) {
+      allowOrigin = origin; // Echo back the origin when using wildcard
+    }
+
+    res.setHeader("Access-Control-Allow-Origin", allowOrigin);
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization, Cookie"
+    );
+    res.status(200).end();
+    return;
+  }
+
   // Ensure res.socket exists (required for Socket.io)
   if (!res.socket) {
     console.error(
@@ -21,6 +48,7 @@ export default function handler(req: NextApiRequest, res: any) {
   console.log("[Socket API] Handler called:", {
     method: req.method,
     url: req.url,
+    origin: req.headers.origin,
     headers: {
       upgrade: req.headers.upgrade,
       connection: req.headers.connection,
@@ -36,30 +64,61 @@ export default function handler(req: NextApiRequest, res: any) {
     console.log("[Socket API] Initializing Socket.io server...");
     try {
       // Get allowed origins from env or use wildcard for development
-      const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || ["*"];
+      const allowedOriginsEnv = process.env.ALLOWED_ORIGINS || "*";
+      const allowedOrigins =
+        allowedOriginsEnv === "*"
+          ? "*"
+          : allowedOriginsEnv.split(",").map((origin) => origin.trim());
+
+      console.log("[Socket API] Allowed origins:", allowedOrigins);
+
+      // CORS config: When credentials: true, cannot use "*" - must specify origins
+      // Socket.IO's origin: true will automatically set Access-Control-Allow-Origin to the request origin
+      // This works with credentials: true
+      const corsConfig: any = {
+        methods: ["GET", "POST", "OPTIONS"],
+        credentials: true,
+        allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
+      };
+
+      if (allowedOrigins === "*") {
+        // For development/local: allow all origins
+        // Socket.IO will set Access-Control-Allow-Origin to the request origin (not "*")
+        // This works with credentials: true
+        corsConfig.origin = true;
+        console.log(
+          "[Socket API] Using wildcard origin (auto-detect from request)"
+        );
+      } else {
+        // For production: validate against allowed list
+        corsConfig.origin = (
+          origin: string | undefined,
+          callback: (err: Error | null, allow?: boolean) => void
+        ) => {
+          // Allow requests with no origin (mobile apps, Postman, etc.)
+          if (!origin) {
+            console.log("[Socket API] Allowing request with no origin");
+            callback(null, true);
+            return;
+          }
+
+          // Check if origin is in allowed list
+          if (allowedOrigins.includes(origin)) {
+            console.log(`[Socket API] ✓ Allowing origin: ${origin}`);
+            callback(null, true);
+          } else {
+            console.warn(`[Socket API] ✗ CORS blocked origin: ${origin}`);
+            console.warn(
+              `[Socket API] Allowed origins: ${allowedOrigins.join(", ")}`
+            );
+            callback(new Error(`Not allowed by CORS: ${origin}`));
+          }
+        };
+      }
 
       io = new IOServer(res.socket.server, {
         path: "/api/socket",
-        cors: {
-          origin:
-            allowedOrigins.length === 1 && allowedOrigins[0] === "*"
-              ? "*"
-              : (origin, callback) => {
-                  // Allow requests from allowed origins
-                  if (
-                    !origin ||
-                    allowedOrigins.includes("*") ||
-                    allowedOrigins.includes(origin)
-                  ) {
-                    callback(null, true);
-                  } else {
-                    callback(new Error("Not allowed by CORS"));
-                  }
-                },
-          methods: ["GET", "POST"],
-          credentials: true, // Allow cookies/credentials
-          allowedHeaders: ["Content-Type", "Authorization"],
-        },
+        cors: corsConfig,
         transports: ["websocket", "polling"], // Allow both for compatibility
       });
       res.socket.server.io = io;
