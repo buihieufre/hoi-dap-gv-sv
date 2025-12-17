@@ -139,17 +139,6 @@ export async function GET(request: NextRequest) {
             },
           },
         },
-        tags: {
-          include: {
-            tag: {
-              select: {
-                id: true,
-                name: true,
-                slug: true,
-              },
-            },
-          },
-        },
         _count: {
           select: {
             answers: true,
@@ -205,11 +194,7 @@ export async function GET(request: NextRequest) {
           name: qc.category.name,
           slug: qc.category.slug,
         })),
-        tags: q.tags.map((qt: any) => ({
-          id: qt.tag.id,
-          name: qt.tag.name,
-          slug: qt.tag.slug,
-        })),
+        tags: [], // Tags table removed from schema
         views: q.views,
         answersCount: q._count.answers || 0,
         acceptedAnswerId: q.acceptedAnswerId,

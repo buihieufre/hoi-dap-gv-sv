@@ -84,15 +84,6 @@ export async function GET(request: NextRequest) {
               fullName: { contains: searchTerm, mode: "insensitive" },
             },
           },
-          {
-            tags: {
-              some: {
-                tag: {
-                  name: { contains: searchTerm, mode: "insensitive" },
-                },
-              },
-            },
-          },
         ],
       };
 
@@ -120,16 +111,6 @@ export async function GET(request: NextRequest) {
           {
             author: {
               fullName: { contains: word, mode: "insensitive" },
-            },
-          },
-          // Search in tags
-          {
-            tags: {
-              some: {
-                tag: {
-                  name: { contains: word, mode: "insensitive" },
-                },
-              },
             },
           },
         ],
@@ -176,21 +157,6 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Tag filter - find questions that have any of the specified tags
-    if (tagNames && tagNames.length > 0) {
-      andConditions.push({
-        tags: {
-          some: {
-            tag: {
-              name: {
-                in: tagNames,
-                mode: "insensitive",
-              },
-            },
-          },
-        },
-      });
-    }
 
     // Category filter
     if (categoryId) {
@@ -260,17 +226,6 @@ export async function GET(request: NextRequest) {
             id: true,
             name: true,
             slug: true,
-          },
-        },
-        tags: {
-          include: {
-            tag: {
-              select: {
-                id: true,
-                name: true,
-                slug: true,
-              },
-            },
           },
         },
         _count: {
@@ -419,17 +374,6 @@ export async function GET(request: NextRequest) {
                   slug: true,
                 },
               },
-              tags: {
-                include: {
-                  tag: {
-                    select: {
-                      id: true,
-                      name: true,
-                      slug: true,
-                    },
-                  },
-                },
-              },
               _count: {
                 select: {
                   answers: true,
@@ -522,11 +466,7 @@ export async function GET(request: NextRequest) {
               slug: q.category.slug,
             }
           : null,
-        tags: q.tags.map((qt: any) => ({
-          id: qt.tag.id,
-          name: qt.tag.name,
-          slug: qt.tag.slug,
-        })),
+        tags: [], // Tags table removed from schema
         views: q.views,
         answersCount: q._count.answers || 0,
         acceptedAnswerId: q.acceptedAnswerId,

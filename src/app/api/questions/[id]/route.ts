@@ -51,17 +51,7 @@ export async function GET(
             description: true,
           },
         },
-        tags: {
-          include: {
-            tag: {
-              select: {
-                id: true,
-                name: true,
-                slug: true,
-              },
-            },
-          },
-        },
+
         categories: {
           include: {
             category: {
@@ -97,7 +87,6 @@ export async function GET(
           select: {
             answers: true,
             votes: true,
-            comments: true,
           },
         },
       },
@@ -186,11 +175,11 @@ export async function GET(
         categories: (prismaQuestion.categories || []).map(
           (qc: any) => qc.category
         ),
-        tags: prismaQuestion.tags.map((qt) => qt.tag),
+        tags: [], // Tags table removed from schema
         views: question.views,
         answersCount: prismaQuestion._count.answers,
         votesCount: prismaQuestion._count.votes,
-        commentsCount: prismaQuestion._count.comments,
+        commentsCount: 0, // Comments table removed from schema
         acceptedAnswerId: question.acceptedAnswerId,
         duplicateOfId: question.duplicateOfId,
         answers: prismaQuestion.answers.map((answer) => ({

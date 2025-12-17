@@ -117,7 +117,6 @@ export class QuestionRepository implements IQuestionRepository {
     query: string,
     filters?: {
       categoryId?: string;
-      tagIds?: string[];
       status?: QuestionStatus;
       authorId?: string;
     }
@@ -145,16 +144,7 @@ export class QuestionRepository implements IQuestionRepository {
       where.authorId = filters.authorId;
     }
 
-    // Tag filter
-    if (filters?.tagIds && filters.tagIds.length > 0) {
-      where.tags = {
-        some: {
-          tagId: {
-            in: filters.tagIds,
-          },
-        },
-      };
-    }
+    // Tags filter removed - tags table no longer exists in schema
 
     const questions = await prisma.question.findMany({
       where,
